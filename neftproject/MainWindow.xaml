@@ -1,0 +1,53 @@
+﻿<Window 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:neftproject.Commands"
+    xmlns:vm="clr-namespace:neftproject.ViewModels"
+    xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:Custom="http://schemas.microsoft.com/wpf/2008/toolkit" 
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+    mc:Ignorable="d" 
+    x:Class="neftproject.MainWindow"
+    Title="Нефтяные скважины" Height="525.462" Width="1259.803" ResizeMode="NoResize">
+    <Grid Margin="170,0,536,0" >
+
+
+        <DataGrid x:Name="dataGrid1"  AutoGenerateColumns="False" Margin="-165,0,42,10" ItemsSource="{Binding WellsList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название скважины" Binding="{Binding wellName, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Глубина скважины" Binding="{Binding depth, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Плотность нефти" Binding="{Binding oilDensity, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Кол-во шагов разбиения" Binding="{Binding partStep, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <DataGridTemplateColumn Header="Давление">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Рассчитать" Command="{Binding GetItemCommand, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate >
+                <DataTemplate>
+                    <Border BorderThickness="0" Background="BlanchedAlmond" Padding="10" >
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Vertical">
+                                <chartingToolkit:Chart Visibility="Visible"  Title="График профиля давления" Width="550" Height="290" d:LayoutOverrides="HorizontalAlignment"  >
+                                    <chartingToolkit:LineSeries  DependentValuePath="X"  IndependentValuePath="Y"  ItemsSource="{Binding MyPointCollection}"  />
+                                </chartingToolkit:Chart>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+        <ListView Margin="499,24,-528,10" DataContext="{Binding WellsList}" >            
+            <Button   HorizontalAlignment="Center" VerticalAlignment="Top" Width="549" Height="46" Content="Рассчитать" Command="{Binding GetItemCommand, UpdateSourceTrigger=PropertyChanged}" />
+            <chartingToolkit:Chart Visibility="Visible"  HorizontalAlignment="Right" Title=" Uh" VerticalAlignment="Top" Width="549" Height="284" >
+                <chartingToolkit:LineSeries   IsSelectionEnabled="True" DependentValuePath="X"  IndependentValuePath="Y"  ItemsSource="{Binding MyPointCollection}"  />
+            </chartingToolkit:Chart>
+        </ListView>
+    </Grid>
+</Window>
