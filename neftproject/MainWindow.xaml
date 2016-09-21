@@ -10,11 +10,11 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
     mc:Ignorable="d" 
     x:Class="neftproject.MainWindow"
-    Title="Нефтяные скважины" Height="525.462" Width="1259.803" ResizeMode="NoResize">
-    <Grid Margin="170,0,536,0" >
+    Title="Нефтяные скважины" Height="525.462" Width="629.803" ResizeMode="NoResize">
+    <Grid Margin="170,10,62,0" >
 
 
-        <DataGrid x:Name="dataGrid1"  AutoGenerateColumns="False" Margin="-165,0,42,10" ItemsSource="{Binding WellsList}">
+        <DataGrid x:Name="dataGrid1"  AutoGenerateColumns="False" Margin="-165,0,-54,10" ItemsSource="{Binding WellsList}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название скважины" Binding="{Binding wellName, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Глубина скважины" Binding="{Binding depth, UpdateSourceTrigger=PropertyChanged}"/>
@@ -43,11 +43,11 @@
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
-        <ListView Margin="499,24,-528,10" DataContext="{Binding WellsList}" >            
+       <!-- <ListView Margin="499,24,-528,10" DataContext="{Binding WellsList}" >            
             <Button   HorizontalAlignment="Center" VerticalAlignment="Top" Width="549" Height="46" Content="Рассчитать" Command="{Binding GetItemCommand, UpdateSourceTrigger=PropertyChanged}" />
-            <chartingToolkit:Chart Visibility="Visible"  HorizontalAlignment="Right" Title=" Uh" VerticalAlignment="Top" Width="549" Height="284" >
+            <chartingToolkit:Chart Visibility="Visible"  HorizontalAlignment="Right" Title="Рассчет профиля давления" VerticalAlignment="Top" Width="549" Height="284" >
                 <chartingToolkit:LineSeries   IsSelectionEnabled="True" DependentValuePath="X"  IndependentValuePath="Y"  ItemsSource="{Binding MyPointCollection}"  />
             </chartingToolkit:Chart>
-        </ListView>
+        </ListView>-->
     </Grid>
 </Window>
